@@ -17,4 +17,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set Environment Variable
-        run: ls
+        run: |
+          git init VascularModelingData
+          cd VascularModelingData
+          git remote add origin https://github.com/STEllAR-GROUP/VascularModelingData.git
+          git config core.sparsecheckout true
+          echo "reference_results/single_node" >> .git/info/sparse-checkout
+          git pull origin master
+          ls reference_results/single_node/
