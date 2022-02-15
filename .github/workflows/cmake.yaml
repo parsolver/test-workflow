@@ -2,9 +2,9 @@ name: CMake
 
 on:
   push:
-    branches: [ master package-as-lib]
+    branches: [ main package-as-lib]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -31,4 +31,3 @@ jobs:
 
     # - name: Test
     #   working-directory: ${{github.workspace}}/build
-    #   run: ctest -C ${{env.BUILD_TYPE}}
