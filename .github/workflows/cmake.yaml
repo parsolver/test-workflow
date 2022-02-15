@@ -2,9 +2,9 @@ name: CMake
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -16,22 +16,28 @@ jobs:
     container: rtohid/vascular:github-workflow
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure CMake
-      run: |
-        source /opt/spack/share/spack/setup-env.sh
-        spack load googletest
-        spack load mpich
-        spack load hdf5
-        spack load metis
-        spack load parmetis
-        spack load clhep
-        spack load intel-mkl
-        spack load hypre
-        export METIS_DIR=`spack find -p metis | grep -P "/opt/spack.*" -o`
-        export HYPRE_DIR=`spack find -p hypre | grep -P "/opt/spack.*" -o`
-        export sleef_DIR=/opt/sleef/cmake-install
-        export CPATH=$CPATH:$METIS_DIR/include
-        cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}  -S . -B cmake-build/${{env.BUILD_TYPE}}
-        cmake --build cmake-build/${{env.BUILD_TYPE}} --parallel
+      - name: Setup Environment
+        run: |
+          source /opt/spack/share/spack/setup-env.sh
+          spack load googletest
+          spack load mpich
+          spack load hdf5
+          spack load metis
+          spack load parmetis
+          spack load clhep
+          spack load intel-mkl
+          spack load hypre
+          export METIS_DIR=`spack find -p metis | grep -P "/opt/spack.*" -o`
+          export HYPRE_DIR=`spack find -p hypre | grep -P "/opt/spack.*" -o`
+          export sleef_DIR=/opt/sleef/cmake-install
+          export CPATH=$CPATH:$METIS_DIR/include
+
+      - name: Configure CMake
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}  -S . -B cmake-build/${{env.BUILD_TYPE}}
+
+      - name: Build
+        run: |
+          cmake --build cmake-build/${{env.BUILD_TYPE}} --parallel
