@@ -1,0 +1,1 @@
+![CMake Workflow](https://github.com/parsolver/test-workflow/actions/workflows/cmake.yaml/badge.svg?event=push)

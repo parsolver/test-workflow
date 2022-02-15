@@ -1,4 +1,4 @@
-name: CMake
+name: CMake Docker
 
 on:
   push:
@@ -12,24 +12,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: rtohid/vascular:github-workflow
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set Environment Variable
-        run: |
-          source /opt/spack/share/spack/setup-env.sh
-          spack env activate vascular
-          echo "METIS_DIR=$(spack find -p metis | grep -P "/opt/spack.*" -o)" >> $GITHUB_ENV
-          echo "HYPRE_DIR=$(spack find -p hypre | grep -P "/opt/spack.*" -o)" >> $GITHUB_ENV
-          echo "sleef_DIR=/opt/sleef/cmake-install" >> $GITHUB_ENV
-          echo "CPATH=$CPATH:$METIS_DIR/include" >> $GITHUB_ENV
-      - name: Config and Build
-        run: |
-          source /opt/spack/share/spack/setup-env.sh
-          spack env activate vascular
-          cmake -DHYPRE_LIBRARY=$HYPRE_DIR/lib/libHYPRE.so -DCMAKE_CXX_FLAGS=-march=native -Dsleef_DIRECTORY=$sleef_DIR -S . -B cmake-build/${{env.BUILD_TYPE}}
-          cmake --build cmake-build/${{env.BUILD_TYPE}} --parallel
-          cmake --install cmake-build/${{env.BUILD_TYPE}} --prefix cmake-install/${{env.BUILD_TYPE}}
-          echo $sleef_DIR
+        run: ls
