@@ -13,7 +13,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: rtohid/vascular:github-workflow
 
     steps:
     - uses: actions/checkout@v2
-    - run: ls -lt
+    - run: ls
