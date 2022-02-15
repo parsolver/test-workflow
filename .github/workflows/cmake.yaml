@@ -33,4 +33,5 @@ jobs:
         export HYPRE_DIR=`spack find -p hypre | grep -P "/opt/spack.*" -o`
         export sleef_DIR=/opt/sleef/cmake-install
         export CPATH=$CPATH:$METIS_DIR/include
-
+        cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}  -S . -B cmake-build/${{env.BUILD_TYPE}}
+        cmake --build cmake-build/${{env.BUILD_TYPE}} --parallel
