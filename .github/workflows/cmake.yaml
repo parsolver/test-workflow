@@ -20,7 +20,7 @@ jobs:
 
     - name: Configure CMake
       run:
-        source ${{github.workspace}}/scripts/setuo-env.sh
+        source ${{github.workspace}}/scripts/setup-env.sh
         cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}  -S . -B cmake-build/${{env.BUILD_TYPE}}
         cmake --build cmake-build/${{env.BUILD_TYPE}} --parallel
         cmake --install cmake-build/${{env.BUILD_TYPE}} --prefix cmake-install/${{env.BUILD_TYPE}} 
