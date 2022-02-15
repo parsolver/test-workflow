@@ -20,4 +20,4 @@ jobs:
 
     - name: Configure CMake
       run:
-        source ${{github.workspace}}/scripts/setup-env.sh
+        pwd
